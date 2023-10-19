@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, url_for, redirect
-from models import ToDo, db
+from static.models import toDo, db
 
 
 def create_app():
@@ -13,7 +13,7 @@ app = create_app()
 
 @app.get('/')
 def home():
-    pass
+    return 'Hello'
 
 @app.get('/add')
 def add():
