@@ -8,4 +8,9 @@
         </div>
         <button class="ui teal basic button" type="submit">Add</button>
     </form>
+
+{% for todo in todo_list %}
+    {{ todo.id}} - {{todo.title}} - {{todo.is_complete}}
+{% endfor %}
+
 {% endblock content %}
