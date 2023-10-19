@@ -1,6 +1,9 @@
 {% extends "layout.html" %}
 
 {% block content %}
+
+ <div class="ui container">
+    <h1 class="ui center aligned header">My Tasks</h1>
     <form class="ui form" action="/add" method="post">
         <div class="field">
             <label>New Task</label>
@@ -9,8 +12,20 @@
         <button class="ui teal basic button" type="submit">Add</button>
     </form>
 
-{% for todo in todo_list %}
-    {{ todo.id}} - {{todo.title}} - {{todo.is_complete}}
-{% endfor %}
 
+    {% for todo in todo_list %}
+        <div class="ui segment">
+            <h2 class="ui big header">№{{ todo.id }}  {{ todo.title }}</h2>
+
+            {% if todo.is_complete == False %}
+            <span class="ui gray label">Not Completed</span>
+            <a href="/update/{{ todo.id }}" class="ui primary basic button">Close</a>
+            {% else %}
+            <span class="ui green label">Completed</span>
+            <a href="/update/{{ todo.id }}" class="ui blue button">Open</a>
+            {% endif %}
+            <a href="/delete/{{ todo.id }}" class="ui negative basic button">Delete</a>
+        </div>
+    {% endfor %}
+</div>
 {% endblock content %}

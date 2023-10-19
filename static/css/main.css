@@ -1,1 +1,8 @@
 /* General Styles File */
+body{
+    margin-top: 50px;
+}
+h1{
+    color: #333;
+    font-size: 40px;
+}
