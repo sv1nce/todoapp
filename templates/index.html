@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <form action="/add" class="ui form" method="post">
+        <div class="field">
+            <label>New Task</label>
+            <input type="text" name="title" placeholder="Enter your task name">
+        </div>
+        <button class="ui teal basic button">Add</button>
+    </form>
+{% endblock %}

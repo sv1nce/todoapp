@@ -13,7 +13,7 @@ app = create_app()
 
 @app.get('/')
 def home():
-    todo_list = toDo.query.all()
+    todo_list = ToDo.query.all()
     return render_template('templates/index.html', todo_list = todo_list, title = 'Home Page')
 
 @app.post('/add')
@@ -27,14 +27,14 @@ def add():
 
 @app.get('/update/<int:todo_id>')
 def update(todo_id):
-    todo = ToDo.query.filter_by(id=todo_id).first()
+    Todo = ToDo.query.filter_by(id=todo_id).first()
     todo.is_coplete = not todo.is_comlete
     db.session.commit()
     return redirect(url_for('home'))
 
 @app.get('/delete/<int:todo_id>')
 def delete(todo_id):
-    todo = ToDo.query.filter_by(id=todo_id).first()
+    Todo = ToDo.query.filter_by(id=todo_id).first()
     db.session.delete(todo)
     db.session.commit()
     return redirect(url_for('home'))
