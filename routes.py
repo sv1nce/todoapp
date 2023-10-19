@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, url_for, redirect
-from static.models import ToDo, db
+from models import ToDo, db
 
 
 def create_app():
@@ -14,7 +14,7 @@ app = create_app()
 @app.get('/')
 def home():
     todo_list = ToDo.query.all()
-    return render_template('index.html', todo_list=todo_list, title='Home Page')
+    return render_template('index.html')
 
 @app.post('/add')
 def add():

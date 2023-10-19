@@ -1,4 +1,4 @@
-from static.routes import app, db
+from routes import app, db
 
 
 if __name__ == '__main__':
