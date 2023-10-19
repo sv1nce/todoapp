@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, url_for, redirect
-from static.models import toDo, db
+from static.models import ToDo, db
 
 
 def create_app():
@@ -13,16 +13,28 @@ app = create_app()
 
 @app.get('/')
 def home():
-    return 'Hello'
+    todo_list = toDo.query.all()
+    return render_template('templates/index.html', todo_list = todo_list, title = 'Home Page')
 
-@app.get('/add')
+@app.post('/add')
 def add():
-    pass
+    title = request.form.get('title')
+    new_todo =  ToDo(title=title, is_complete = False)
+    
+    db.session.all(new_todo)
+    db.session.commit()
+    return redirect(url_for('home'))
 
-@app.get('/update')
-def update():
-    pass
+@app.get('/update/<int:todo_id>')
+def update(todo_id):
+    todo = ToDo.query.filter_by(id=todo_id).first()
+    todo.is_coplete = not todo.is_comlete
+    db.session.commit()
+    return redirect(url_for('home'))
 
-@app.get('/delete')
-def delete():
-    pass
+@app.get('/delete/<int:todo_id>')
+def delete(todo_id):
+    todo = ToDo.query.filter_by(id=todo_id).first()
+    db.session.delete(todo)
+    db.session.commit()
+    return redirect(url_for('home'))
