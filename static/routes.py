@@ -14,27 +14,27 @@ app = create_app()
 @app.get('/')
 def home():
     todo_list = ToDo.query.all()
-    return render_template('templates/index.html', todo_list = todo_list, title = 'Home Page')
+    return render_template('index.html', todo_list=todo_list, title='Home Page')
 
 @app.post('/add')
 def add():
     title = request.form.get('title')
-    new_todo =  ToDo(title=title, is_complete = False)
+    new_todo = ToDo(title=title, is_complete=False)
     
-    db.session.all(new_todo)
+    db.session.add(new_todo)  # Поправив помилку тут (замість `all` має бути `add`)
     db.session.commit()
     return redirect(url_for('home'))
 
 @app.get('/update/<int:todo_id>')
 def update(todo_id):
-    Todo = ToDo.query.filter_by(id=todo_id).first()
-    todo.is_coplete = not todo.is_comlete
+    todo = ToDo.query.filter_by(id=todo_id).first()  # Поправив тут (замість `ToDo` має бути `todo`)
+    todo.is_complete = not todo.is_complete
     db.session.commit()
     return redirect(url_for('home'))
 
 @app.get('/delete/<int:todo_id>')
 def delete(todo_id):
-    Todo = ToDo.query.filter_by(id=todo_id).first()
+    todo = ToDo.query.filter_by(id=todo_id).first()  # Поправив тут (замість `ToDo` має бути `todo`)
     db.session.delete(todo)
     db.session.commit()
     return redirect(url_for('home'))
